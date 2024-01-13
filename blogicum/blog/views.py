@@ -43,20 +43,20 @@ posts: list[dict] = [
                 укутывал их, чтобы не испортились от дождя.''',
     },
 ]
-posts = {post['id']: post for post in posts}
+posts_id = {post['id']: post for post in posts}
 
 
 def index(request):
     template = 'blog/index.html'
-    context = {'posts': list(reversed(list(posts.values())))}
+    context = {'posts': list(reversed(list(posts_id.values())))}
     return render(request, template, context)
 
 
 def post_detail(request, id: int):
     template = 'blog/detail.html'
-    if id not in list(posts):
+    if id not in list(posts_id):
         raise Http404("Такой страницы не существует.")
-    context = {'post': posts[id]}
+    context = {'post': posts_id[id]}
     return render(request, template, context)
 
 
